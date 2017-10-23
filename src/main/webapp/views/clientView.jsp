@@ -10,7 +10,7 @@
 	<body>
 		<h1>Display Client</h1>
 		<c:choose>
-			<%-- On n'a pss trouvé le client --%>
+			<%-- On n'a pas trouvé le client --%>
 			<c:when test="${empty customer}">
 				Client inconnu.			
 			</c:when>

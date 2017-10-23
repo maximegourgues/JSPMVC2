@@ -16,8 +16,9 @@
 		<c:set var="balance" value="120000.2309" />
 
 		<h1>JSTL Custom Tags</h1>
-                <a href=".">Retour au menu</a><br>
-
+		<%-- Equivalent de request.getContextPath() en java --%>
+		<a href="${pageContext.request.contextPath}">Retour au menu</a><hr>
+		
 		<c:if test="${empty param.score}">
 			Le paramètre "score" est vide (if)<hr>
 		</c:if>

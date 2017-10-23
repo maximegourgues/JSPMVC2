@@ -8,13 +8,15 @@
 		<title>JSP Test</title>
 	</head>
 	<body>
-		<a href=".">Retour au menu</a><br>
+		<br>
+		<%-- Equivalent de request.getContextPath() en java --%>
+		<a href="${pageContext.request.contextPath}">Retour au menu</a><hr>
 		<c:choose>
 			<%-- Si le paramètre yourname est présent, on l'affiche --%>
 			<c:when test="${not empty param.yourname }">
 				<h1>Hello ${param.yourname} !</h1>
 			</c:when>
-			<%-- Sinon on montre un forulaire de saisie pour yourname --%>
+			<%-- Sinon on montre un formulaire de saisie pour yourname --%>
 			<c:otherwise>
 				<div>
 					<form>

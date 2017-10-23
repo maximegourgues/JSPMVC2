@@ -12,6 +12,8 @@
 		<% for (int i =0; i < 10; i++) { %>
                 Hello (<%= i %>) ! <br>
 		<% } %>
-                <a href=".">Retour au menu</a>
+		<hr>
+		<%-- Equivalent de request.getContextPath() en java --%>
+		<a href="${pageContext.request.contextPath}">Retour au menu</a>
 	</body>
 </html>

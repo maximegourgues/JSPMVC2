@@ -15,8 +15,6 @@
 		<title>Liste JSTL</title>
 	</head>
 	<body>
-		<a href=".">Retour au menu</a><br>
-
 		<!-- On definit une requete SQL -->
 		<sql:query var = "customer" >
 			SELECT * FROM CUSTOMER  WHERE CUSTOMER_ID = ?
@@ -41,5 +39,10 @@
 				<tr><td>${record.ORDER_NUM}</td><td>${record.DESCRIPTION}</td><td>${record.QUANTITY}</td></tr>
 			</c:forEach>		
 		</table>
+
+		<br>
+		<%-- Equivalent de request.getContextPath() en java --%>
+		<a href="${pageContext.request.contextPath}">Retour au menu</a><br>
+		
 	</body>
 </html>
