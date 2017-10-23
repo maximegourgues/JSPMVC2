@@ -18,7 +18,6 @@
                 Customer n° ${customer.customerId} <br> name: ${customer.name}<br> address: ${customer.addressLine1}        
             </c:otherwise>
         </c:choose>
-
-
+        <a href=".">Retour au menu</a><br>
     </body>
 </html>
