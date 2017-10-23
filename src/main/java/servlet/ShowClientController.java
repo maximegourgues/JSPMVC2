@@ -1,9 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,11 +8,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import simplejdbc.CustomerEntity;
 import simplejdbc.DAO;
-import simplejdbc.DAOException;
 import simplejdbc.DataSourceFactory;
 
-@WebServlet(name = "ShowClient", urlPatterns = {"/ShowClient"})
-public class ShowClient extends HttpServlet {
+/**
+ * Show Client MVC controller
+ */
+@WebServlet(name = "ShowClientController", urlPatterns = {"/ShowClientController"})
+public class ShowClientController extends HttpServlet {
 
 	/**
 	 * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -27,37 +26,27 @@ public class ShowClient extends HttpServlet {
 	 */
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
+		try {	// Trouver la valeur du paramètre HTTP customerID
+			String val = request.getParameter("customerID");
+			if (val == null)
+				throw new Exception("Le paramètre customerID n'a pas été transmis");
+			
+			// on doit convertir cette valeur en entier (attention aux exceptions !)
+			int customerID = Integer.valueOf(val);
 
-		response.setContentType("text/html;charset=UTF-8");
-		try (PrintWriter out = response.getWriter()) {
-			out.println("<!DOCTYPE html>");
-			out.println("<html>");
-			out.println("<head>");
-			out.println("<title>Servlet ShowClient</title>");
-			out.println("</head>");
-			out.println("<body>");
-			try {	// Trouver la valeur du paramètre HTTP customerID
-				String val = request.getParameter("customerID");
-				// on doit convertir cette valeur en entier (attention aux exceptions !)
-				int customerID = Integer.valueOf(val);
+			DAO dao = new DAO(DataSourceFactory.getDataSource());
+			CustomerEntity customer = dao.findCustomer(customerID);
+			
+			request.setAttribute("customer", customer);
+			// On redirige vers la vue
+			request.getRequestDispatcher("clientView.jsp").forward(request, response);
 
-				DAO dao = new DAO(DataSourceFactory.getDataSource());
-				CustomerEntity customer = dao.findCustomer(customerID);
-
-				// Afficher les propriétés du client			
-				out.printf("Customer n° %d <br> name: %s <br> address: %s",
-					customerID,
-					customer.getName(),
-					customer.getAddressLine1());
-			} catch (NumberFormatException | DAOException e) {
-				out.printf("Erreur : %s", e.getMessage());
-			}
-			out.printf("<hr><a href='%s'>Retour au menu</a>",request.getContextPath());			
-			out.println("</body>");
-			out.println("</html>");
-		} catch (Exception ex) {
-			Logger.getLogger("servlet").log(Level.SEVERE, "Erreur de traitement", ex);
+		} catch (Exception e) {
+			request.setAttribute("error", e.getMessage());			
+			// On redirige vers la page d'erreur
+			request.getRequestDispatcher("errorView.jsp").forward(request, response);
 		}
+		
 	}
 
 	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
