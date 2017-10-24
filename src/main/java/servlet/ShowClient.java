@@ -38,21 +38,26 @@ public class ShowClient extends HttpServlet {
 			out.println("<body>");
 			try {	// Trouver la valeur du paramètre HTTP customerID
 				String val = request.getParameter("customerID");
+				if (val == null) {
+					throw new Exception("La paramètre customerID n'a pas été transmis");
+				}
 				// on doit convertir cette valeur en entier (attention aux exceptions !)
 				int customerID = Integer.valueOf(val);
 
 				DAO dao = new DAO(DataSourceFactory.getDataSource());
 				CustomerEntity customer = dao.findCustomer(customerID);
-
+				if (customer == null) {
+					throw new Exception("Client inconnu");
+				}
 				// Afficher les propriétés du client			
 				out.printf("Customer n° %d <br> name: %s <br> address: %s",
 					customerID,
 					customer.getName(),
 					customer.getAddressLine1());
-			} catch (NumberFormatException | DAOException e) {
+			} catch (Exception e) {
 				out.printf("Erreur : %s", e.getMessage());
 			}
-			out.printf("<hr><a href='%s'>Retour au menu</a>",request.getContextPath());			
+			out.printf("<hr><a href='%s'>Retour au menu</a>", request.getContextPath());
 			out.println("</body>");
 			out.println("</html>");
 		} catch (Exception ex) {
