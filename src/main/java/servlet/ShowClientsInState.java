@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import simplejdbc.CustomerEntity;
-import simplejdbc.DAO;
+import simplejdbc.ExtendedDAO;
 import simplejdbc.DAOException;
 import simplejdbc.DataSourceFactory;
 
@@ -45,8 +45,8 @@ public class ShowClientsInState extends HttpServlet {
 			try {
 				// Trouver la valeur du paramètre HTTP state
 				String state = request.getParameter("state");
-				// Créér le DAO avec sa source de données
-				DAO dao = new DAO(DataSourceFactory.getDataSource());
+				// Créér le ExtendedDAO avec sa source de données
+				ExtendedDAO dao = new ExtendedDAO(DataSourceFactory.getDataSource());
 
 				List<CustomerEntity> customers = dao.customersInState(state);
 

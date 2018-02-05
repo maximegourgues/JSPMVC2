@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import simplejdbc.CustomerEntity;
-import simplejdbc.DAO;
+import simplejdbc.ExtendedDAO;
 import simplejdbc.DAOException;
 import simplejdbc.DataSourceFactory;
 
@@ -44,7 +44,7 @@ public class ShowClient extends HttpServlet {
 				// on doit convertir cette valeur en entier (attention aux exceptions !)
 				int customerID = Integer.valueOf(val);
 
-				DAO dao = new DAO(DataSourceFactory.getDataSource());
+				ExtendedDAO dao = new ExtendedDAO(DataSourceFactory.getDataSource());
 				CustomerEntity customer = dao.findCustomer(customerID);
 				if (customer == null) {
 					throw new Exception("Client inconnu");

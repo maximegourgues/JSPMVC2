@@ -8,12 +8,12 @@ import java.util.LinkedList;
 import java.util.List;
 import javax.sql.DataSource;
 
-public class DAO extends SimpleDataAccessObject {
+public class ExtendedDAO extends DAO {
 	/**
 	 *
 	 * @param dataSource la source de données à utiliser
 	 */
-	public DAO(DataSource dataSource) {
+	public ExtendedDAO(DataSource dataSource) {
 		super(dataSource);
 	}	
 

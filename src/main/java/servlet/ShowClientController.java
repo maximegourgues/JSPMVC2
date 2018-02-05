@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import simplejdbc.CustomerEntity;
-import simplejdbc.DAO;
+import simplejdbc.ExtendedDAO;
 import simplejdbc.DataSourceFactory;
 
 /**
@@ -34,7 +34,7 @@ public class ShowClientController extends HttpServlet {
 			// on doit convertir cette valeur en entier (attention aux exceptions !)
 			int customerID = Integer.valueOf(val);
 
-			DAO dao = new DAO(DataSourceFactory.getDataSource());
+			ExtendedDAO dao = new ExtendedDAO(DataSourceFactory.getDataSource());
 			CustomerEntity customer = dao.findCustomer(customerID);
 			// On renseigne un attribut utilisé par la vue
 			request.setAttribute("customer", customer);

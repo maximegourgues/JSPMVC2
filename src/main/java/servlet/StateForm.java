@@ -11,7 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import simplejdbc.DAO;
+import simplejdbc.ExtendedDAO;
 import simplejdbc.DAOException;
 import simplejdbc.DataSourceFactory;
 
@@ -38,7 +38,7 @@ public class StateForm extends HttpServlet {
 			out.println("</head>");
 			out.println("<body>");
 			try {
-				DAO dao = new DAO(DataSourceFactory.getDataSource());
+				ExtendedDAO dao = new ExtendedDAO(DataSourceFactory.getDataSource());
 				List<String> states = dao.existingStates();
 
 				// Formulaire 
