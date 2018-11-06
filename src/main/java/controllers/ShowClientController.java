@@ -1,4 +1,4 @@
-package servlet;
+package controllers;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -6,14 +6,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import simplejdbc.CustomerEntity;
+import simplejdbc.ExtendedDAO;
+import simplejdbc.DataSourceFactory;
 
-
-@WebServlet(name = "exampleController", urlPatterns = {"/exampleController"})
-public class exampleController extends HttpServlet {
+/**
+ * Show Client MVC controller
+ */
+@WebServlet(name = "ShowClientController", urlPatterns = {"/ShowClientController"})
+public class ShowClientController extends HttpServlet {
 
 	/**
-	 * Processes requests for both HTTP <code>GET</code> and
-	 * <code>POST</code> methods.
+	 * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
 	 *
 	 * @param request servlet request
 	 * @param response servlet response
@@ -22,27 +26,28 @@ public class exampleController extends HttpServlet {
 	 */
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
-		// On récupère les paramètres de la requête
-		String p1 = request.getParameter("p1");
-		String jspView; // La page à afficher
-		// En fonction des paramètres, on initialise les variables utilisées dans les JSP
-		// Et on choisit la vue (page JSP) à afficher
-		if (null == p1) { // Pas de paramètre : on montre le formulaire de saisie
-			jspView = "saisieParametre.html";
-		} else if ("M".equals(p1)) { // Paramètre OK
-			// On positionne des infos à afficher dans la page
-			request.setAttribute("message", "Monsieur");
-			// On va vers une page d'affichage
-			jspView = "afficheMessage.jsp";
-		} else if ("F".equals(p1)) { // Idem
-			request.setAttribute("message", "Madame");
-			jspView = "afficheMessage.jsp";
-		} else { // Paramètre incorrect
-			request.setAttribute("errorMessage", "Paramètre p1 incorrect: " + p1);
-			jspView = "afficheErreur.jsp";
+		try {	// Trouver la valeur du paramètre HTTP customerID
+			String val = request.getParameter("customerID");
+			if (val == null)
+				throw new Exception("Le paramètre customerID n'a pas été transmis");
+			
+			// on doit convertir cette valeur en entier (attention aux exceptions !)
+			int customerID = Integer.valueOf(val);
+
+			ExtendedDAO dao = new ExtendedDAO(DataSourceFactory.getDataSource());
+			CustomerEntity customer = dao.findCustomer(customerID);
+			// On renseigne un attribut utilisé par la vue
+			request.setAttribute("customer", customer);
+			// On redirige vers la vue
+			request.getRequestDispatcher("views/clientView.jsp").forward(request, response);
+
+		} catch (Exception e) {
+			// On renseigne un attribut utilisé par la vue
+			request.setAttribute("error", e.getMessage());			
+			// On redirige vers la page d'erreur
+			request.getRequestDispatcher("views/errorView.jsp").forward(request, response);
 		}
-		// On continue vers la page JSP sélectionnée
-		request.getRequestDispatcher("views/" + jspView).forward(request, response);
+		
 	}
 
 	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
