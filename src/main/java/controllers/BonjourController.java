@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet(name = "exampleController", urlPatterns = {"/exampleController"})
-public class exampleController extends HttpServlet {
+@WebServlet(name = "bonjour", urlPatterns = {"/bonjour"})
+public class BonjourController extends HttpServlet {
 
 	/**
 	 * Processes requests for both HTTP <code>GET</code> and

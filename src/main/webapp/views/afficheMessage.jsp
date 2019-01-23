@@ -9,6 +9,7 @@
 		<!-- La variable "message" est initialisée dans la servlet -->
 		<h1>Bonjour ${message}</h1>
 		<br>
+		<a href="bonjour">Recommencer</a><br>
 		<%-- Equivalent de request.getContextPath() en java --%>
 		<a href="${pageContext.request.contextPath}">Retour au menu</a><br>
 	</body>
