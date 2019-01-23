@@ -11,9 +11,10 @@
 	</head>
 	<body>
 		<%-- variables utilisées dans la page --%>
-		<%-- Normalement, ces variables devraient être définies par une servlet --%>
+		<%-- Normalement, ces variables devraient être définiesen java par une servlet en utilisant request.setAttibute(...) --%>
 		<c:set var="today" value="<%=new java.util.Date()%>" />
 		<c:set var="balance" value="120000.2309" />
+		<c:set var="listePrenoms" value="Lia, Manon, Aurore, Stella" />
 
 		<h1>JSTL Custom Tags</h1>
 		<%-- Equivalent de request.getContextPath() en java --%>
@@ -47,7 +48,9 @@
 		<hr>
 
 		<%-- Itération sur une liste --%>
-		<c:forEach var="prenom" items="Lia, Manon, Aurore, Stella" varStatus="status">
+		<%-- items représente les éléments sur lesquels on souhaite itérer --%>
+		<%-- varStatus permet de savoir à quel state de l'itération on se trouve --%>
+		<c:forEach var="prenom" items="${listePrenoms}" varStatus="status">
 			Prénom n° ${status.count} = ${prenom}, first : ${status.first}, last : ${status.last}<br>
 		</c:forEach>
 
