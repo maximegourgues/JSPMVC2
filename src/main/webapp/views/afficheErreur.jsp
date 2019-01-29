@@ -8,7 +8,7 @@
 	<body>
 		<h1>Erreur !</h1>
 		<!-- La variable "errorMessage" est initialisée dans le contrôleur -->
-		Erreur: ${errorMessage}
+		Erreur: ${errorMessage} !
 		<br>
 		<%-- Equivalent de request.getContextPath() en java --%>
 		<a href='${pageContext.request.contextPath}'>Retour au menu</a><br>	
