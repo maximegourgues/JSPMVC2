@@ -7,7 +7,7 @@
 	</head>
 	<body>
 		<h1>Erreur !</h1>
-		<!-- La variable "errorMessage" est initialisée dans la servlet -->
+		<!-- La variable "errorMessage" est initialisée dans le contrôleur -->
 		Erreur: ${errorMessage}
 		<br>
 		<%-- Equivalent de request.getContextPath() en java --%>

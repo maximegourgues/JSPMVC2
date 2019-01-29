@@ -44,14 +44,17 @@ public class ShowClientsInStateWithForm extends HttpServlet {
 				// Trouver la valeur du paramètre HTTP state
 				String state = request.getParameter("state");
 				// On n'a pas forcément le paramètre
-				if (null == state) {
+				if (null == state) { // Si on n'a pas le paramètre
+					// On choisit le 1° de la liste
 					state = states.get(0);
 				}
 
 				List<CustomerEntity> customers = dao.customersInState(state);
 
-				// Formulaire 
+				// Formulaire : l'action par défaut est de revenir à cette servlet
 				out.println("<form>");
+				// Javascript : on soumet automatiquement le formulaire quand la
+				// valeur sélectionnée change
 				out.println("<select name='state' onchange='this.form.submit()'>");
 
 				for (String s : states) {
