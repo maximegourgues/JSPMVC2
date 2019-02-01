@@ -25,7 +25,7 @@ public class ExtendedDAO extends DAO {
 	 */
 	public List<String> existingStates() throws DAOException {
 		List<String> result = new LinkedList<>();
-		String sql = "SELECT DISTINCT STATE FROM CUSTOMER";
+		String sql = "SELECT DISTINCT STATE FROM CUSTOMER ORDER BY STATE";
 		try (	Connection connection = myDataSource.getConnection(); 
 			Statement stmt = connection.createStatement(); 
 			ResultSet rs = stmt.executeQuery(sql)) {

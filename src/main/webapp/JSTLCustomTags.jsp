@@ -49,7 +49,7 @@
 
 		<%-- Itération sur une liste --%>
 		<%-- items représente les éléments sur lesquels on souhaite itérer --%>
-		<%-- varStatus permet de savoir à quel state de l'itération on se trouve --%>
+		<%-- varStatus permet de savoir à quel stade de l'itération on se trouve --%>
 		<c:forEach var="prenom" items="${listePrenoms}" varStatus="status">
 			Prénom n° ${status.count} = ${prenom}, first : ${status.first}, last : ${status.last}<br>
 		</c:forEach>
