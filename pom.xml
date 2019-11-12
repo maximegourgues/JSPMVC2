@@ -32,7 +32,12 @@
             <artifactId>jstl</artifactId>
             <version>1.2</version>
         </dependency>
-
+      <!-- Derby network client JDBC driver -->
+        <dependency>
+            <groupId>org.apache.derby</groupId>
+            <artifactId>derbyclient</artifactId>
+            <version>10.14.1.0</version>
+        </dependency>
     </dependencies>
 
     <build>
