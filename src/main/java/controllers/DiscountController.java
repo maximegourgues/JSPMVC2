@@ -33,9 +33,9 @@ public class DiscountController extends HttpServlet {
 			Map<String,Float> listeCodes = dao.existingDiscountCode();
 			// On renseigne un attribut utilisé par la vue
 			request.setAttribute("listeCodes", listeCodes);
-                        String jspView = "discountView.jsp";
+                       
 			// On redirige vers la vue
-			request.getRequestDispatcher("views/"+jspView).forward(request, response);
+			request.getRequestDispatcher("views/discountView.jsp").forward(request, response);
 
 		} catch (Exception e) {
 			// On renseigne un attribut utilisé par la vue
